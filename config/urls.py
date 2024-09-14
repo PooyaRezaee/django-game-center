@@ -21,13 +21,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("ckeditor/", include("django_ckeditor_5.urls")),
-] 
+    path("", include("apps.main.urls","main")),
+    path("reserve/", include("apps.reservation.urls","reserve")),
+    path("account/", include("apps.account.urls","account")),
+    path("blog/", include("apps.blog.urls","blog")),
+]
 
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

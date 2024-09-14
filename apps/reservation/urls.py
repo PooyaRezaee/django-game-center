@@ -1,6 +1,8 @@
 from django.urls import path
-# from .views import ...
+from .views import ReserveView
+
+app_name = "reserve"
 
 urlpatterns = [
-    # path("path", CBV.as_view(), name="name"),
+    path("", ReserveView.as_view(), name="index"),
 ]

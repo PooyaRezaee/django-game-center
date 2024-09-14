@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main-body %}
+<section class="flex flex-wrap justify-around space-y-4">
+    <a href="{% url 'blog:detail' %}" class="flex flex-col items-center w-11/12 md:w-5/12 bg-gray-800 bg-opacity-50 px-2 py-6 rounded-xl space-y-4 hover:bg-opacity-80 transition-opacity duration-75">
+        <img src="{% static 'img/sample.jpg' %}" alt="Picture" class="w-11/12 rounded-t-xl">
+        <h1 class="text-3xl text-center">عنوان مقاله</h1>
+    </a>
+    <a href="{% url 'blog:detail' %}" class="flex flex-col items-center w-11/12 md:w-5/12 bg-gray-800 bg-opacity-50 px-2 py-6 rounded-xl space-y-4 hover:bg-opacity-80 transition-opacity duration-75">
+        <img src="{% static 'img/sample.jpg' %}" alt="Picture" class="w-11/12 rounded-t-xl">
+        <h1 class="text-3xl text-center">عنوان مقاله</h1>
+    </a>
+    <a href="{% url 'blog:detail' %}" class="flex flex-col items-center w-11/12 md:w-5/12 bg-gray-800 bg-opacity-50 px-2 py-6 rounded-xl space-y-4 hover:bg-opacity-80 transition-opacity duration-75">
+        <img src="{% static 'img/sample.jpg' %}" alt="Picture" class="w-11/12 rounded-t-xl">
+        <h1 class="text-3xl text-center">عنوان مقاله</h1>
+    </a>
+    <a href="{% url 'blog:detail' %}" class="flex flex-col items-center w-11/12 md:w-5/12 bg-gray-800 bg-opacity-50 px-2 py-6 rounded-xl space-y-4 hover:bg-opacity-80 transition-opacity duration-75">
+        <img src="{% static 'img/sample.jpg' %}" alt="Picture" class="w-11/12 rounded-t-xl">
+        <h1 class="text-3xl text-center">عنوان مقاله</h1>
+    </a>
+</section>
+{% endblock main-body %}

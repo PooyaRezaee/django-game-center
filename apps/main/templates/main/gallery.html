@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block main-body %}
+<div class="flex flex-col items-center space-y-4 md:space-y-0">
+    <img src="{% static 'img/sample.jpg' %}" class="mx-auto w-11/12 md:w-2/3 img" alt="">
+    <div class="md:flex md:justify-around">
+        <img src="{% static 'img/sample.jpg' %}" class="mx-auto w-11/12 md:w-6/12 img" alt="">
+        <img src="{% static 'img/sample.jpg' %}" class="mx-auto w-11/12 md:w-6/12 img" alt="">
+    </div>
+    <img src="{% static 'img/sample.jpg' %}" class="mx-auto w-11/12 md:w-2/3 img" alt="">
+</div>
+{% endblock main-body %}
