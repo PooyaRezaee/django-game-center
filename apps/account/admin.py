@@ -7,7 +7,7 @@ from .models import User
 @admin.register(User)
 class UserAdmin(UserAdmin):
     fieldsets = (
-        ("اصلی", {"fields": ("full_name","phone_number", "email")}),
+        ("اصلی", {"fields": ("full_name", "phone_number", "email")}),
         (
             "دسترسی ها",
             {"fields": ("is_active", "is_admin", "is_superuser")},
@@ -43,11 +43,11 @@ class UserAdmin(UserAdmin):
     list_display = (
         "phone_number",
         "full_name",
-        "last_login",
         "is_active",
+        "last_login",
         "joined_at",
     )
-    search_fields = ("id", "email", "full_name")
+    search_fields = ("id", "email", "full_name", "phone_number")
     list_filter = ("last_login", "is_active", "joined_at")
     actions = ["disable_account", "enable_account"]
 
