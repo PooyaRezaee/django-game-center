@@ -22,77 +22,50 @@
         
             <!-- Tab Content -->
             <div id="content-ps4" class="tab-content px-2 md:p-4 py-5 bg-gray-950 text-white rounded-b-lg">
+                
+                {% for console in ps4 %}   
                 <div class="bg-white bg-opacity-10 rounded-xl mb-4 md:mb-6">
-                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">کنسول شماره یک</h2>
+                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">{{ console.name }}</h2>
                     <div class="p-2 md:p-4">
                         <ul class="text-gray-300 mb-4 flex justify-around flex-wrap text-xs md:text-base">
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">FIFA 23 | فیفا 23</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Minecraft |‌ ماینکرافت</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Reddead 2 |‌ رد دد 2</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Call of Duty: Modern Warfare | ‌کالاف دیوتی</li>
-                            <!-- Add more games as needed -->
+                            {% for game in console.games.all %}
+                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">{{ game.name }}</li>
+                            {% endfor %}
                         </ul>
                         <button type="button" class="w-full bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md py-2 rounded-md hover:opacity-80 focus:ring-2 focus:ring-teal-500 focus:shadow-teal-500 focus:shadow-md">رزرو</button>
                     </div>
                 </div>
-                <div class="bg-white bg-opacity-10 rounded-xl mb-4">
-                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">کنسول شماره دو</h2>
-                    <div class="p-2 md:p-4">
-                        <ul class="text-gray-300 mb-4 flex justify-around flex-wrap text-xs md:text-base">
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">FIFA 23 | فیفا 23</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Minecraft |‌ ماینکرافت</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Reddead 2 |‌ رد دد 2</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Call of Duty: Modern Warfare | ‌کالاف دیوتی</li>
-                            <!-- Add more games as needed -->
-                        </ul>
-                        <button type="button" class="w-full bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md py-2 rounded-md hover:opacity-80 focus:ring-2 focus:ring-teal-500 focus:shadow-teal-500 focus:shadow-md">رزرو</button>   
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div id="content-pc" class="tab-content px-2 md:p-4 py-5 bg-gray-950 text-white rounded-b-lg hidden">
-                <div class="bg-white bg-opacity-10 rounded-xl mb-4">
-                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">کامپیوتر شماره یک</h2>
+                {% for p in pc %}   
+                <div class="bg-white bg-opacity-10 rounded-xl mb-4 md:mb-6">
+                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">{{ p.name }}</h2>
                     <div class="p-2 md:p-4">
                         <ul class="text-gray-300 mb-4 flex justify-around flex-wrap text-xs md:text-base">
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Strong Hole | قلعه</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Minecraft |‌ ماینکرافت</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">general |‌ جنرال</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Call of Duty: Modern Warfare 2 |  کالاف دیوتی مدرن وارفار 1</li>
-                            <!-- Add more games as needed -->
+                            {% for game in p.games.all %}
+                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">{{ game.name }}</li>
+                            {% endfor %}
                         </ul>
                         <button type="button" class="w-full bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md py-2 rounded-md hover:opacity-80 focus:ring-2 focus:ring-teal-500 focus:shadow-teal-500 focus:shadow-md">رزرو</button>
                     </div>
                 </div>
-                <div class="bg-white bg-opacity-10 rounded-xl mb-4">
-                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">کامپیوتر شماره دو</h2>
-                    <div class="p-2 md:p-4">
-                        <ul class="text-gray-300 mb-4 flex justify-around flex-wrap text-xs md:text-base">
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">FIFA 23 | فیفا 23</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Minecraft |‌ ماینکرافت</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Reddead 2 |‌ رد دد 2</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Call of Duty: Modern Warfare | ‌کالاف دیوتی</li>
-                            <!-- Add more games as needed -->
-                        </ul>
-                        <button type="button" class="w-full bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md py-2 rounded-md hover:opacity-80 focus:ring-2 focus:ring-teal-500 focus:shadow-teal-500 focus:shadow-md">رزرو</button>   
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <div id="content-ps5" class="tab-content px-2 md:p-4 py-5 bg-gray-950 text-white rounded-b-lg hidden">
-                <div class="bg-white bg-opacity-10 rounded-xl mb-4">
-                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">کنسول VIP</h2>
+                {% for console in ps5 %}   
+                <div class="bg-white bg-opacity-10 rounded-xl mb-4 md:mb-6">
+                    <h2 class="text-2xl text-white mb-2 text-center bg-gray-700 p-4 rounded-t-lg">{{ console.name }}</h2>
                     <div class="p-2 md:p-4">
                         <ul class="text-gray-300 mb-4 flex justify-around flex-wrap text-xs md:text-base">
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">FIFA 23 | فیفا 23</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Minecraft |‌ ماینکرافت</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Reddead 2 |‌ رد دد 2</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">GTA V |‌ جی تی ای وی </li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Mortal Combat 11 |‌ مورتال کامبت 11</li>
-                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">Call of Duty: Modern Warfare | ‌کالاف دیوتی</li>
-                            <!-- Add more games as needed -->
+                            {% for game in console.games.all %}
+                            <li class="p-2 shadow-md bg-gradient-to-tr from-pink-800 via-pink-800 via-40% to-pink-950 to-90% bg-opacity-40 mx-1 my-2">{{ game.name }}</li>
+                            {% endfor %}
                         </ul>
                         <button type="button" class="w-full bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md py-2 rounded-md hover:opacity-80 focus:ring-2 focus:ring-teal-500 focus:shadow-teal-500 focus:shadow-md">رزرو</button>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
 {% endblock main-body %}
