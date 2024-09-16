@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-
+{% load widget_tweaks %}
 
 {% block head %}
 <style>
@@ -26,13 +26,13 @@
     }
 
     .rotate-in {
-    transition: all 0.3s;
-    animation: rotate-in 0.3s forwards;
+    transition: all 0.2s;
+    animation: rotate-in 0.2s forwards;
     }
 
     .rotate-out {
-    transition: all 0.3s;
-    animation: rotate-out 0.3s forwards;
+    transition: all 0.2s;
+    animation: rotate-out 0.2s forwards;
     }
 
     input[type="number"]::-webkit-outer-spin-button,
@@ -45,26 +45,22 @@
     
 
 {% block body %}
-<div id="box-register" class="w-11/12 lg:w-1/4 mx-auto flex flex-col items-center justify-center mb-auto">
+<div id="box-register" class="hidden w-11/12 lg:w-1/4 mx-auto flex flex-col items-center justify-center mb-auto">
     <h1
         class="w-full mb-2 text-center text-4xl font-extrabold leading-none tracking-tight px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
         ثبت نام</h1>
-    <form id="registration-form" method="post" action="/"
+    <form id="registration-form" method="post" action="{% url 'account:register' %}"
         class="relative w-full max-h-full px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
+        {% csrf_token %}
         <div id="register-fields" class="">
             <div class="relative z-0 w-full mb-5 group mt-2">
-                <input type="text" name="name"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=" " required />
+                {% render_field  register_form.name class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " %}
                 <label for="name"
-                    class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">نام
-                    کامل</label>
+                    class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">نام</label>
                 <p id="name_error" class="mt-2 text-sm text-red-500"></p>
             </div>
             <div class="relative z-0 w-full mb-5 group mt-2">
-                <input type="text" name="phone_number"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=" " required />
+                {% render_field  register_form.phone_number class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " %}
                 <label for="phone_number"
                     class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">شماره
                     تلفن</label>
@@ -72,9 +68,7 @@
 
             </div>
             <div class="relative z-0 mb-5 group">
-                <input type="password" name="password1" id="floating_password"
-                    class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=" " required />
+                {% render_field  register_form.password class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " %}
                 <label for="password1"
                     class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">رمز
                     عبور</label>
@@ -102,24 +96,21 @@
 </div>
 
 <div id="box-login"
-    class="hidden w-11/12 lg:w-1/4 mx-auto flex flex-col items-center justify-center mb-auto">
+    class="w-11/12 lg:w-1/4 mx-auto flex flex-col items-center justify-center mb-auto">
     <h1
         class="w-full mb-2 text-center text-4xl font-extrabold leading-none tracking-tight px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
         ورود</h1>
-    <form method="post"
+    <form action="{% url 'account:login' %}" method="post"
         class="relative w-full max-h-full px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
+        {% csrf_token %}
         <div class="relative z-0 w-full mb-5 group mt-2">
-            <input type="text" name="phone_number"
-                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required />
+            {% render_field  login_form.phone_number class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " %}
             <label for="phone_number"
                 class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 شماره تلفن</label>
         </div>
         <div class="relative z-0 mb-10 group">
-            <input type="password" name="password1" id="floating_password"
-                class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" " required />
+            {% render_field  login_form.password class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " %}
             <label for="password1"
                 class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                 رمز عبور</label>

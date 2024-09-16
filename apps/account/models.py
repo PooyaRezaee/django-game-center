@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=12,verbose_name="شماره تلفن",unique=True)
-    full_name = models.CharField("نام کامل", max_length=150, null=True)
+    full_name = models.CharField("نام", max_length=150, null=True)
     email = models.EmailField("آدرس ایمیل", unique=True, null=True, blank=True)
     is_active = models.BooleanField("آیا فعال است ؟",default=True)
     is_admin = models.BooleanField("آیا ادمین است ؟",default=False)

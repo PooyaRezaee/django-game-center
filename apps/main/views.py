@@ -38,7 +38,7 @@ class ContactView(View):
         
         if form.is_valid():
             form.save()
-            messages.success("پیام شما با موفقیت ارسال شد")
+            messages.success(request,"پیام شما با موفقیت ارسال شد")
             return redirect("main:home")
         else:
             messages.warning(form.errors)

@@ -202,9 +202,7 @@ LOGGING = {
 SITE_ID = 1
 
 AUTH_USER_MODEL = "account.User"
-# LOGIN_URL = "account:login"
+LOGIN_URL = "account:enter"
 
 from .other.email import *
-
-
 from .other.ckeditor import *
