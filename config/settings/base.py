@@ -25,6 +25,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "default_se@cret_key@#$fa")
 
 THIRD_PARTY_APPS = [
     "django_ckeditor_5",
+    "widget_tweaks",
 ]
 LOCAL_APPS = [
     "apps.account.apps.AccountConfig",

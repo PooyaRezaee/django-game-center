@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import View
+from .forms import ContactForm
+from django.contrib import messages
 
 
 class HomeView(View):
@@ -21,16 +23,28 @@ class GalleryView(View):
 
 
 class ContactView(View):
+    form_class = ContactForm
+
     def get(self, request):
         context = {
             "state":"contact",
+            "form": self.form_class,
         }
 
         return render(request, "main/contact.html",context)
 
     def post(self, request):  # TODO need captcha
-        context = {
-            "state":"contact",
-        }
+        form = self.form_class(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            messages.success("پیام شما با موفقیت ارسال شد")
+            return redirect("main:home")
+        else:
+            messages.warning(form.errors)
+            context = {
+                "state":"contact",
+                "form": form,
+            }
+            return render(request, "main/contact.html",context)
 
-        return render(request, "main/contact.html",context)

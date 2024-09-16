@@ -6,14 +6,14 @@ from django.dispatch import receiver
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=128)
-    thumbnail = models.ImageField(upload_to="article")
-    content = CKEditor5Field()
-    slug = models.SlugField(unique=True)
-    is_draft = models.BooleanField(default=False)
+    title = models.CharField("عنوان",max_length=128)
+    thumbnail = models.ImageField("تصویر",upload_to="article")
+    content = CKEditor5Field("محتوا")
+    slug = models.SlugField("اسلاگ",unique=True,allow_unicode=True)
+    is_draft = models.BooleanField("پیش نویس است ؟",default=False)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField("تاریخ ایجاد",auto_now_add=True)
+    updated_at = models.DateTimeField("تاریخ اپدیت",auto_now=True)
 
     class Meta:
         verbose_name = "مقاله"

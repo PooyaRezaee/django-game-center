@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
-    
+{% load widget_tweaks %}
+
 
 {% block main-body %}
-<form method="POST" class="space-y-4 p-2 md:p-6">
+<form method="POST" class="space-y-4 p-2 md:p-6">   
+    {% csrf_token %}
     <h2 class="text-center text-3xl">انتقادات و پیشنهادات خود را در این بخش میتوانید ارسال کنید</h2>
     <div>
         <label for="subject" class="block text-gray-200 font-medium mb-2">موضوع</label>
-        <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" placeholder="موضوع را وارد کنید">
+        {% render_field  form.subject class="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" placeholder="موضوع را وارد کنید" %}
     </div>
     <div>
         <label for="description" class="block text-gray-200 font-medium mb-2">توضیحات</label>
-        <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" placeholder="توضیحات خود را وارد کنید"></textarea>
+        {% render_field  form.content rows="4" class="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" placeholder="توضیحات خود را وارد کنید" %}
     </div>
     <div>
         <label for="phone" class="block text-gray-200 font-medium mb-2">شماره تلفن (در صورت وارد نکردن شماره تلفن پیغام شما بصورت ناشناس ارسال میشود)</label>
-        <input type="text" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" placeholder="شماره تلفن را وارد کنید (اختیاری)">
+        {% render_field  form.phone_number class="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500" placeholder="شماره تلفن را وارد کنید (اختیاری)" %}
     </div>
     <button type="submit" class="w-full bg-sky-700 text-gray-50 py-2 rounded-md hover:bg-sky-900 transition duration-75">ارسال</button>
 </form>
