@@ -14,14 +14,14 @@
     <img id="background" src="{% static 'img/bg.webp' %}" loading="lazy" alt="SelenaGame">
     <header class="p-5">
         <h1 id="title" class="text-center text-8xl lg:text-9xl md:hidden">سلنا گیم</h1>
-        <nav class="w-full mx-auto flex flex-col md:flex-none md:flex-row justify-between text-xl my-2">
+        <nav class="w-full mx-auto flex flex-col md:flex-none md:flex-row justify-between items-center text-xl my-2">
             <div class="flex flex-wrap justify-center md:p-1 md:justify-start md:w-1/3">
                 <a href="{% url 'main:home' %}" class="
                 {% if state == 'home' %}
                 p-2 shadow-md self-center h-max shadow-white md:p-3 m-1 border bg-white text-black
                 {% else %}
                 p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950
-                {% endif %}
+                {% endif  %}
                     ">خانه</a>
                 <a href="{% url 'reserve:index' %}" class="
                 {% if state == 'reserve' %}
@@ -70,7 +70,17 @@
             </div>
         </nav>
     </header>
-
+    <div id="messages" class="w-11/12 md:w-2/3 mx-auto">
+        {% for message in messages %}
+            <div class="p-2 
+                {% if message.tags == 'success' %}bg-emerald-700{% elif message.tags == 'error' %}bg-rose-700{% elif message.tags == 'warning' %}bg-amber-500{% elif message.tags == 'info' %}bg-cyan-500{% elif message.tags == 'debug' %}bg-slate-500{% endif %} 
+                bg-opacity-60 cursor-pointer" onclick="hidden_tag(this)">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    
+    
     {% block body %}
     {% endblock body %}
     

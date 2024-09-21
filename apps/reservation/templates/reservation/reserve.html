@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    رزرو PS4 شماره 1
+{% endblock title %}
+    
+
+{% block head %}
+<link type="text/css" rel="stylesheet" href="{% static 'assets/jalalidatepicker.min.css' %}" />
+<script type="text/javascript" src="{% static 'assets/jalalidatepicker.min.js' %}"></script>
+{% endblock head %}
+    
+
+{% block main-body %}
+<form action="" method="post" class="text-center">
+    <h1 class="text-center font-bold text-2xl p-3">رزرو PS4 دستگاه شماره 1</h1>
+    <hr class="my-2">
+    <div class="flex items-center p-2">
+        <h3 class="me-auto">تاریخ رزرو</h3>
+        <input readonly class="text-black text-center w-max p-2" value="برای انتخاب روز کلیک کنید" name="datereserve" id="datereserve" data-jdp>
+    </div>
+    
+    <div class="flex items-center p-2">
+        <h3 class="me-auto">ساعت رزرو‌ (ساعت را بصورت 24 ساعته از 8 تا 22 انتخاب کنید)</h3>
+        <div class="m-1">
+            <label for="r1">از</label>
+            <input class="text-black text-center p-1 mx-2" value="8" type="number" min="8" max="22"> <!-- Use 24 time and limit -->
+        </div>
+        <div class="m-1">
+            <label for="r2">تا</label>
+            <input class="text-black text-center p-1 mx-2" value="10" type="number" min="8" max="22">
+        </div>
+    </div>
+    <hr class="my-2">
+    <button type="button" class="bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md rounded-md   hover:shadow-emerald-800 p-2 my-2 w-11/12 md:w-2/3 bg-opacity-70">ثبت نوبت</button>
+</form>
+{% endblock main-body %}
+
+
+
+{% block script %}
+<script>
+    jalaliDatepicker.startWatch(
+        {
+            persianDigits:false,
+            maxDate:"today",
+            showEmptyBtn:false,
+        }
+    );
+</script>
+{% endblock script %}

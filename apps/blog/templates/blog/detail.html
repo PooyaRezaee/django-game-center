@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+{% block title %}
+    مقاله {{ article.title }}
+{% endblock title %}
+    
+
 {% block main-body %}
 <img src="{{ article.thumbnail.url }}" alt="" class="w-11/12 lg:w-2/3 mx-auto img my-2">
 <h1 class="text-xl md:text-2xl lg:text-4xl text-white rounded-md text-shadow text-center">

@@ -56,6 +56,7 @@ class LoginView(NoLoginRequiredMixin, View):
                 messages.error(request, "شماره یا رمز اشتباه میباشد")
                 return redirect("account:enter")
             else:
+                messages.success(request, "وارد شدید")
                 login(request, user)
             return redirect("main:home")
         else:

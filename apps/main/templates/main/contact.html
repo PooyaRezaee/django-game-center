@@ -2,6 +2,11 @@
 {% load widget_tweaks %}
 
 
+{% block title %}
+    انتقاد و پیشنهاد
+{% endblock title %}
+    
+
 {% block main-body %}
 <form method="POST" class="space-y-4 p-2 md:p-6">   
     {% csrf_token %}
