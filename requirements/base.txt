@@ -6,3 +6,5 @@ django-extensions==3.2.1
 pillow==10.4.0
 django-ckeditor-5==0.2.13
 django_widget_tweaks==1.5.0
+# jdatetime==5.0.0
+# django_jalali==7.1.0

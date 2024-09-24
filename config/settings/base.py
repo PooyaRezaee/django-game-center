@@ -26,6 +26,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "default_se@cret_key@#$fa")
 THIRD_PARTY_APPS = [
     "django_ckeditor_5",
     "widget_tweaks",
+    "django_jalali",
+    "django_extensions"
 ]
 LOCAL_APPS = [
     "apps.account.apps.AccountConfig",
@@ -147,7 +149,7 @@ CACHES = {
     }
 }
 
-LOGGING_LEVEL = "DEBUG" if DEBUG else "INFO"
+LOGGING_LEVEL = "INFO"
 LOGGING_FILE_PATH_ERROR = BASE_DIR / "logs" / "err.log"
 LOGGING_FILE_PATH_INFO = BASE_DIR / "logs" / "main.log"
 
