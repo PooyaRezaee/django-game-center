@@ -27,7 +27,8 @@ THIRD_PARTY_APPS = [
     "django_ckeditor_5",
     "widget_tweaks",
     "django_jalali",
-    "django_extensions"
+    "django_extensions",
+    "solo",
 ]
 LOCAL_APPS = [
     "apps.account.apps.AccountConfig",
@@ -72,6 +73,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.main.context_processors.site_settings",
             ],
         },
     },

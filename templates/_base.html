@@ -37,6 +37,8 @@
                 p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950
                 {% endif %}
                     ">گالری</a>
+                
+                {% if config.weblog_status %}
                 <a href="{% url 'blog:list' %}" class="
                 {% if state == 'weblog' %}
                 p-2 shadow-md self-center h-max shadow-white md:p-3 m-1 border bg-white text-black
@@ -44,6 +46,7 @@
                 p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950
                 {% endif %}
                     ">وبلاگ</a>
+                {% endif %}
                 <a href="{% url 'main:contact' %}" class="
                 {% if state == 'contact' %}
                 p-2 shadow-md self-center h-max shadow-white md:p-3 m-1 border bg-white text-black

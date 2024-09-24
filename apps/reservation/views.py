@@ -3,6 +3,7 @@ from django.views import View
 from apps.account.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db import IntegrityError
+from apps.main.models import SiteSettings
 from .selectors.devices import get_devices
 from .services.reserve import reserve_device
 from .selectors.reserve import time_reserved
@@ -11,6 +12,12 @@ from .models import PC, PS4, PS5
 
 
 class ListReserveView(View):
+    def dispatch(self, request, *args, **kwargs):
+        config = SiteSettings.get_solo()
+        if not config.reserve_status:
+            messages.warning(request, "در حال حاضر رزرو از طریق سایت غیرفعال میباشد")
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request):
         context = {
             "state": "reserve",
@@ -30,6 +37,14 @@ class ListReserveView(View):
 class ReserveView(View):
     form_class = ReserveForm
     model = None
+
+    def dispatch(self, request, *args, **kwargs):
+        config = SiteSettings.get_solo()
+        if config.reserve_status:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            messages.warning(request, "در حال حاضر رزرو از طریق سایت غیرفعال میشود")
+            return redirect("main:home")
 
     def get(self, request, device_pk):
         device = get_object_or_404(self.model, pk=device_pk)
