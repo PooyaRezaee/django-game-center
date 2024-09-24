@@ -19,19 +19,18 @@
     {% csrf_token %}
     <h1 class="text-center font-bold text-2xl p-3">{{ device }}</h1>
     
-    {% if times %}
-        <h2>بازه های پر برای این دستگاه در تاریخ {{ string_date }}</h2>
-        
-        <ul>
-        {% for time in times %}
-            <li>
-                {{ time.0 }} تا {{ time.1 }}
-            </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-        
+    
     <hr class="my-2">
+    {% if times %}
+    <div class="bg-black bg-opacity-30 p-2 my-2">
+        <h2>بازه های پر برای این دستگاه در تاریخ {{ string_date }}</h2>
+        <ul class="flex flex-wrap justify-center mt-4">
+            {% for time in times %}
+                <li class="p-2 bg-black bg-opacity-35 border border-white border-[0.2] m-1">{{ time.0 }} تا {{ time.1 }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
     <div class="flex items-center p-2">
         <h3 class="me-auto">تاریخ رزرو</h3>
         {% render_field form.date readonly="" class="text-black text-center w-max p-2" value="برای انتخاب روز کلیک کنید" data-jdp="" %}
