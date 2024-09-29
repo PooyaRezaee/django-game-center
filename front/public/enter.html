@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Gamenet</title>
+    <style>
+        @keyframes rotate-in {
+        from {
+            transform: rotateY(90deg);
+            opacity: 0;
+        }
+        to {
+            transform: rotateY(0deg);
+            opacity: 1;
+        }
+        }
+
+        @keyframes rotate-out {
+        from {
+            transform: rotateY(0deg);
+            opacity: 1;
+        }
+        to {
+            transform: rotateY(-90deg);
+            opacity: 0;
+        }
+        }
+
+        .rotate-in {
+        transition: all 0.3s;
+        animation: rotate-in 0.3s forwards;
+        }
+
+        .rotate-out {
+        transition: all 0.3s;
+        animation: rotate-out 0.3s forwards;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body dir="rtl" class="min-h-screen flex flex-col">
+    <img id="background" src="img/collection.webp" loading="lazy" alt="SelenaGame">
+    <header class="p-5">
+        <h1 id="title" class="text-center text-8xl lg:text-9xl md:hidden">سلنا گیم</h1>
+        <nav class="w-full mx-auto flex flex-col md:flex-none md:flex-row justify-between items-center text-xl my-2">
+            <div class="flex flex-wrap justify-center md:p-1 md:justify-start md:w-1/3">
+                <a href="index.html" class="p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950">خانه</a>
+                <a href="reserve.html" class="p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950">رزرو</a>
+                <a href="gallery.html" class="p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950">گالری</a>
+                <a href="weblog.html" class="p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950">وبلاگ</a>
+                <a href="contact.html" class="p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 border border-white hover:bg-white hover:text-slate-950">انتقاد و پیشنهاد</a>
+            </div>
+            <h1 id="title" class="text-center text-8xl lg:text-9xl xl:text-9xl hidden md:block md:grow">سلنا گیم</h1>
+            <div class="flex flex-wrap justify-center md:p-12 md:justify-end md:flex-none md:w-1/3">
+                <a href="#" class="p-2 shadow-xl self-center h-max shadow-black md:p-3 m-1 text-black bg-yellow-500 hover:bg-yellow-600">ثبت نام / ورود</a>
+            </div>
+        </nav>
+    </header>
+
+        <div id="box-register" class="w-11/12 lg:w-1/4 mx-auto flex flex-col items-center justify-center mb-auto">
+            <h1
+                class="w-full mb-2 text-center text-4xl font-extrabold leading-none tracking-tight px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
+                ثبت نام</h1>
+            <form id="registration-form" method="post" action="/"
+                class="relative w-full max-h-full px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
+                <div id="register-fields" class="">
+                    <div class="relative z-0 w-full mb-5 group mt-2">
+                        <input type="text" name="name"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required />
+                        <label for="name"
+                            class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">نام
+                            کامل</label>
+                        <p id="name_error" class="mt-2 text-sm text-red-500"></p>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group mt-2">
+                        <input type="text" name="phone_number"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required />
+                        <label for="phone_number"
+                            class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">شماره
+                            تلفن</label>
+                        <p id="phone_error" class="mt-2 text-sm text-red-500"></p>
+    
+                    </div>
+                    <div class="relative z-0 mb-5 group">
+                        <input type="password" name="password1" id="floating_password"
+                            class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" " required />
+                        <label for="password1"
+                            class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">رمز
+                            عبور</label>
+                        <p id="password_error" class="mt-2 text-sm text-red-500"></p>
+                    </div>
+    
+                    <button type="button" onclick="verify_form()"
+                        class="text-white bg-gradient-to-r from-sky-700 to-sky-800 hover:from-sky-600 hover:to-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
+                        ثبت نام
+                        <svg id="verify-loading" aria-hidden="true" role="status"
+                            class="hidden inline w-5 h-5 ms-1 text-white animate-spin" viewBox="0 0 100 101" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="#E5E7EB" />
+                            <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentColor" />
+                        </svg>
+                    </button>
+                    <p class="mt-4">حساب کاربری دارید؟ <a class="text-sky-500 hover:text-sky-600 cursor-pointer"
+                            onclick="toggleBox()">ورود</a> کنید</p>
+                </div>
+            </form>
+        </div>
+    
+        <div id="box-login"
+            class="hidden w-11/12 lg:w-1/4 mx-auto flex flex-col items-center justify-center mb-auto">
+            <h1
+                class="w-full mb-2 text-center text-4xl font-extrabold leading-none tracking-tight px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
+                ورود</h1>
+            <form method="post"
+                class="relative w-full max-h-full px-4 py-8 rounded-lg shadow-lg bg-white bg-opacity-[0.1]">
+                <div class="relative z-0 w-full mb-5 group mt-2">
+                    <input type="text" name="phone_number"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " required />
+                    <label for="phone_number"
+                        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        شماره تلفن</label>
+                </div>
+                <div class="relative z-0 mb-10 group">
+                    <input type="password" name="password1" id="floating_password"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-300 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder=" " required />
+                    <label for="password1"
+                        class="peer-focus:font-medium absolute text-sm text-gray-400 duration-100 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                        رمز عبور</label>
+    
+                </div>
+    
+                <button type="submit"
+                    class="text-white bg-gradient-to-r from-sky-700 to-sky-800 hover:from-sky-600 hover:to-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">ورود</button>
+                <p class="mt-4">حساب کاربری ندارید؟ <a class="text-sky-500 hover:text-sky-600 cursor-pointer"
+                        onclick="toggleBox()">ثبت نام</a> کنید</p>
+            </form>
+        </div>
+    
+    <footer class="text-center mt-2 p-3 bg-black bg-opacity-50">
+        <div>© 2024 تمامی حقوق متعلق به <a href="/" class="underline">SelenaGame</a> میباشد.</div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+    <script>
+    let register_box = document.getElementById('box-register');
+    let login_box = document.getElementById('box-login');
+
+    let register_fields = document.getElementById('register-fields');
+    let verify_field = document.getElementById('verify-code');
+
+    function toggleBox() {
+        if (register_box.classList.contains("hidden")) {
+            login_box.classList.add("rotate-out");
+            setTimeout(() => {
+                login_box.classList.remove("rotate-out");
+                login_box.classList.add("hidden");
+
+                register_box.classList.remove("hidden");
+                register_box.classList.add("rotate-in");
+            }, 300);
+        } else {
+            register_box.classList.add("rotate-out");
+            setTimeout(() => {
+                register_box.classList.remove("rotate-out");
+                register_box.classList.add("hidden");
+
+                login_box.classList.remove("hidden");
+                login_box.classList.add("rotate-in");
+            }, 300);
+        }
+    }
+    function verify_form() {
+        const name = document.querySelector('input[name="name"]');
+        const name_error = document.getElementById('name_error');
+        const phoneNumber = document.querySelector('input[name="phone_number"]');
+        const phoneNumber_error = document.getElementById('phone_error');
+        const password1 = document.querySelector('input[name="password1"]');
+        const password2 = document.querySelector('input[name="password2"]');
+        const password_error = document.getElementById('password_error');
+
+        let status = true;
+
+        const phoneRegex = /^09\d{9}$/;
+        if (name.value === "") {
+            name_error.innerHTML = "نام شما وارد نشده"
+            name.classList.add('border-red-600')
+            name.classList.add('border-red-500')
+            return false;
+        } else {
+            name.classList.remove('border-red-600')
+            name.classList.remove('border-red-500')
+            name_error.innerHTML = ""
+        }
+
+        if (!phoneRegex.test(phoneNumber.value)) {
+            phoneNumber_error.innerHTML = "شماره تلفن معتبر نمیباشد"
+            phoneNumber.classList.add('border-red-600')
+            phoneNumber.classList.add('border-red-500')
+            return false;
+        } else {
+            phoneNumber.classList.remove('border-red-600')
+            phoneNumber.classList.remove('border-red-500')
+            phoneNumber_error.innerHTML = ""
+        }
+        
+        let form = document.getElementById('registration-form');
+        form.submit();
+    }
+    </script>
+</body>
+</html>
