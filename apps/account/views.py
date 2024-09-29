@@ -35,7 +35,7 @@ class RegisterView(NoLoginRequiredMixin, View):
                 login(request, user)
                 return redirect("main:home")
             except IntegrityError:
-                messages.warning("این شماره تلفن قبلا ثبت نام شده است")
+                messages.warning(request,"این شماره تلفن قبلا ثبت نام شده است")
                 return redirect("account:enter")
         else:
             messages.error(request, form.errors)
