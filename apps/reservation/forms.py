@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import ValidationError
 from datetime import date
-from django_jalali.db import models as jmodels
 import jdatetime
 
 

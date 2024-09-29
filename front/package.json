@@ -1,5 +1,5 @@
 {
     "scripts": {
-        "dev": "npx tailwindcss -i ./src/input.css -o ./public/assets/tailwind.css --watch"
+        "dev": "tailwindcss -i ./src/input.css -o ./public/assets/tailwind.css --watch"
     }
 }

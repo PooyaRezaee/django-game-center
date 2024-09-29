@@ -70,8 +70,8 @@ class ReserveView(View):
             try:
                 reserve_device(device, request.user, string_date, start_at, end_at)
                 messages.success(request, "با موفقیت رزرو انجام شد")
-                # return redirect("main:home") TODO back
-                return self.render(request, context)
+                return redirect("main:home")
+                # return self.render(request, context)
             except IntegrityError as e:
                 times = time_reserved(device, string_date)
                 context["string_date"] = string_date
