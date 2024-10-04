@@ -1,4 +1,4 @@
-function hide_messages() {
+زfunction hide_messages() {
     let messages = document.getElementById("messages");
     messages.style.display = "none";
   }
