@@ -1,7 +1,7 @@
 # for production
 [ ] cache for Singleton models
 [ ] cache for weblog list and detail
-[ ] use gzip and check be compress asset files
+[X] use gzip and check be compress asset files
 [ ] use package for security (brut force)
 [ ] change admin panel route and set honeypot
 
