@@ -317,3 +317,7 @@ ALLOWED_HOSTS = [
     "selen-game.liara.run",
     "selengame.ir",
 ]
+
+TIME_CACHE_VIEW = 60 * 60
+SOLO_CACHE = 'default'
+SOLO_CACHE_TIMEOUT = TIME_CACHE_VIEW

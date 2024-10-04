@@ -3,7 +3,6 @@ from django.views import View
 from .forms import ContactForm
 from django.contrib import messages
 
-
 class HomeView(View):
     def get(self, request):
         context = {

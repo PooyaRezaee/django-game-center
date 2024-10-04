@@ -3,3 +3,6 @@ from .base import *
 ALLOWED_HOSTS = [
     "*"
 ]
+TIME_CACHE_VIEW = 60
+SOLO_CACHE = 'default'
+SOLO_CACHE_TIMEOUT = TIME_CACHE_VIEW
