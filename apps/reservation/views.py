@@ -48,9 +48,16 @@ class ReserveView(View):
 
     def get(self, request, device_pk):
         device = get_object_or_404(self.model, pk=device_pk)
+        
+        if self.model is PC:
+            count_controller = False
+        else:
+            count_controller = True
+
         context = {
             "form": self.form_class,
             "device": device,
+            "count_controller":count_controller,
         }
 
         return self.render(request, context)
@@ -58,17 +65,30 @@ class ReserveView(View):
     def post(self, request, device_pk):
         form = self.form_class(data=request.POST)
         device = get_object_or_404(self.model, pk=device_pk)
+
+        if self.model is PC:
+            count_controller = False
+        else:
+            count_controller = True
+
         context = {
             "form": form,
             "device": device,
+            "count_controller":count_controller,
         }
         if form.is_valid():
             cd = form.cleaned_data
             string_date = cd["date"]
             start_at = cd["start_at"]
             end_at = cd["end_at"]
+
+            if self.model is PC:
+                count_controller = 1
+            else:
+                count_controller = cd["count_controller"]
+
             try:
-                reserve_device(device, request.user, string_date, start_at, end_at)
+                reserve_device(device, request.user, string_date, start_at, end_at, count_controller)
                 messages.success(request, "با موفقیت رزرو انجام شد")
                 return redirect("main:home")
                 # return self.render(request, context)

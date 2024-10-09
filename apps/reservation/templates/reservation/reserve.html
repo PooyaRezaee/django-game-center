@@ -46,6 +46,16 @@
             {% render_field form.end_at class="text-black text-center p-1 mx-2" value="10" min="9" max="22" %}
         </div>
     </div>
+    
+    {% if count_controller %}
+    <div class="flex items-center p-2">
+        <h3 class="me-auto">تعداد دسته</h3>
+        <div class="m-1">
+            {% render_field form.count_controller class="text-black text-center p-1 mx-2" value="1" min="1" max="8" %}
+        </div>
+    </div>
+    {% endif %}
+
     <hr class="my-2">
     <button type="submit" class="bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md rounded-md   hover:shadow-emerald-800 p-2 my-2 w-11/12 md:w-2/3 bg-opacity-70">ثبت نوبت</button>
 </form>

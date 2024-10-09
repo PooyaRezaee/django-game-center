@@ -8,6 +8,7 @@ class ReserveForm(forms.Form):
     date = forms.CharField()
     start_at = forms.IntegerField(min_value=8,max_value=22)
     end_at = forms.IntegerField(min_value=8,max_value=22)
+    count_controller = forms.IntegerField(min_value=1,max_value=8,required=False)
 
     def clean_date(self):
         data = self.cleaned_data["date"]

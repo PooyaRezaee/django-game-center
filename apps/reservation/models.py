@@ -1,3 +1,4 @@
+import random
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -9,7 +10,6 @@ class Reserve(models.Model):
     time_start = models.PositiveIntegerField("ساعت شروع")
     time_end = models.PositiveIntegerField("ساعت پایان")
     created_at = models.DateTimeField("تاریخ ایجاد رزرو", auto_now_add=True)
-
     content_type = models.ForeignKey(
         ContentType,
         verbose_name="content type",
@@ -19,8 +19,20 @@ class Reserve(models.Model):
     object_pk = models.CharField("object ID", db_index=True, max_length=64)
     content_object = GenericForeignKey(ct_field="content_type", fk_field="object_pk")
 
+    customer_id = models.IntegerField(verbose_name="شناسه مشتری", null=True, unique=True)
+    count_controller = models.PositiveIntegerField(verbose_name="تعداد دسته (فقط برای پلی استیشن)", default=1)
+
     def __str__(self):
         return f"{self.date_reserve} - {self.time_start}-{self.time_end}"
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+        if not self.customer_id:
+            self.customer_id = f"{random.randint(10,99)}{self.id}{random.randint(10,99)}"
+            self.save()
+            
+
 
     class Meta:
         verbose_name = "رزرو"

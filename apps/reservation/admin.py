@@ -39,7 +39,13 @@ class ReserveInline(GenericTabularInline):
     ct_fk_field = "object_pk"
     fk_name = "content_object"
     extra = 1
-    fields = ["user", "date_reserve", "time_start", "time_end"]
+    fields = [
+        "user",
+        "date_reserve",
+        "time_start",
+        "time_end",
+        "count_controller",
+    ]
 
 
 @admin.register(PS4)
@@ -47,15 +53,18 @@ class PS4Admin(DeviceAdmin):
     inlines = [ReserveInline, PS4GameInline]
     cache_key = "devices-ps4"
 
+
 @admin.register(PS5)
 class PS5Admin(DeviceAdmin):
     inlines = [ReserveInline, PS5GameInline]
     cache_key = "devices-ps5"
 
+
 @admin.register(PC)
 class PCAdmin(DeviceAdmin):
     inlines = [ReserveInline, PCGameInline]
     cache_key = "devices-pc"
+
 
 import jdatetime
 from django.utils import timezone
@@ -141,9 +150,11 @@ class ReserveAdmin(admin.ModelAdmin):
         "jalali_date_reserve",
         "time_start",
         "time_end",
+        "count_controller",
+        "customer_id",
         "jalali_date_created",
     )
-    search_fields = ("user__phone_number",)
+    search_fields = ("user__phone_number", "customer_id")
     list_filter = (ReserveFilter, "created_at", DeviceFilter)
     ordering = ("-date_reserve", "time_start", "time_end")
 
