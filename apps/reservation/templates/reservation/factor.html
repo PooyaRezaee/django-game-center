@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}
+    رسید رزرو
+{% endblock title %}
+
+{% block main-body %}
+<div class="bg-gray-800 bg-opacity-40 rounded-lg p-6 shadow-md">
+    <h2 class="text-center mb-4 font-extrabold text-xl">رسید رزرو</h2>
+    <div class="w-11/12  md:w-1/2 mx-auto lg:w-1/3">
+        <div class="my-2 flex justify-between items-center">
+            <span class="font-semibold">دستگاه</span>
+            <span>{{ device }}</span>
+        </div>
+        {% if count_controller %}
+        <hr class="opacity-50 w-11/12 mx-auto">
+        <div class="my-2 flex justify-between items-center">
+            <span class="font-semibold">تعداد دسته</span>
+            <span>{{ count_controller }} عدد</span>
+        </div>
+        {% endif %}
+        <hr class="opacity-50 w-11/12 mx-auto">
+        <div class="my-2 flex justify-between">
+            <span class="font-semibold">تاریخ رزرو</span>
+            <span>{{ date }}</span>
+        </div>
+        <hr class="opacity-50 w-11/12 mx-auto">
+        <div class="my-2 flex justify-between">
+            <span class="font-semibold">ساعت رزرو</span>
+            <span>{{ start }} تا {{ end }}</span>
+        </div>
+        <hr class="opacity-50 w-11/12 mx-auto">
+        <div class="my-2 flex justify-between">
+            <span class="font-semibold">شناسه مشتری</span>
+            <span>{{ customer_id }}</span>
+        </div>
+        <hr class="opacity-50 w-11/12 mx-auto">
+        <div class="my-2 flex justify-between">
+            <span class="font-semibold">قیمت نهایی</span>
+            <span>{{ price|intcomma:False }} تومان</span>
+        </div>
+    </div>
+    <p class="mt-4 font-extralight opacity-60">شناسه مشتری یا عکس رسید خود را همراه داشته باشید</p>
+</div>
+{% endblock main-body %}
+
+
+
+{% block script %}
+
+{% endblock script %}

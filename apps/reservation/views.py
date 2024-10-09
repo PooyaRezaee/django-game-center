@@ -1,3 +1,5 @@
+from typing import Any
+from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from apps.account.mixins import LoginRequiredMixin
@@ -5,7 +7,7 @@ from django.contrib import messages
 from django.db import IntegrityError
 from apps.main.models import SiteSettings
 from .selectors.devices import get_devices
-from .services.reserve import reserve_device
+from .services.reserve import reserve_device, calculate_price
 from .selectors.reserve import time_reserved
 from .forms import ReserveForm
 from .models import PC, PS4, PS5
@@ -39,25 +41,41 @@ class ReserveView(View):
     model = None
 
     def dispatch(self, request, *args, **kwargs):
-        config = SiteSettings.get_solo()
-        if config.reserve_status:
+        if self.config.reserve_status:
             return super().dispatch(request, *args, **kwargs)
         else:
             messages.warning(request, "در حال حاضر رزرو از طریق سایت غیرفعال میشود")
             return redirect("main:home")
+    
+    def setup(self, request: HttpRequest, *args: Any, **kwargs: Any) -> None:
+        self.config = SiteSettings.get_solo()
+
+        if self.model is PC:
+            self.count_controller = False
+            self.device_price = self.config.price_pc
+            self.controller_price = 0
+        else:
+            if self.model is PS4:
+                self.device_price = self.config.price_ps4
+                self.controller_price = self.config.price_per_controoler_ps4
+            elif self.model is PS5:
+                self.controller_price = self.config.price_per_controoler_ps5
+                self.device_price = self.config.price_ps5
+            
+            self.count_controller = True
+
+
+        return super().setup(request, *args, **kwargs)
 
     def get(self, request, device_pk):
         device = get_object_or_404(self.model, pk=device_pk)
-        
-        if self.model is PC:
-            count_controller = False
-        else:
-            count_controller = True
 
         context = {
             "form": self.form_class,
             "device": device,
-            "count_controller":count_controller,
+            "count_controller": self.count_controller,
+            "controller_price": self.controller_price,
+            "device_price": self.device_price,
         }
 
         return self.render(request, context)
@@ -66,15 +84,12 @@ class ReserveView(View):
         form = self.form_class(data=request.POST)
         device = get_object_or_404(self.model, pk=device_pk)
 
-        if self.model is PC:
-            count_controller = False
-        else:
-            count_controller = True
-
         context = {
             "form": form,
             "device": device,
-            "count_controller":count_controller,
+            "count_controller": self.count_controller,
+            "controller_price": self.controller_price,
+            "device_price": self.device_price,
         }
         if form.is_valid():
             cd = form.cleaned_data
@@ -88,10 +103,32 @@ class ReserveView(View):
                 count_controller = cd["count_controller"]
 
             try:
-                reserve_device(device, request.user, string_date, start_at, end_at, count_controller)
+                customer_id = reserve_device(
+                    device,
+                    request.user,
+                    string_date,
+                    start_at,
+                    end_at,
+                    count_controller,
+                )
                 messages.success(request, "با موفقیت رزرو انجام شد")
-                return redirect("main:home")
-                # return self.render(request, context)
+                return render(
+                    request,
+                    "reservation/factor.html",
+                    {
+                        "device": device,
+                        "count_controller": (
+                            False if self.model is PC else count_controller
+                        ),
+                        "date": string_date,
+                        "start": start_at,
+                        "end": end_at,
+                        "customer_id": customer_id,
+                        "price": calculate_price(
+                            start_at, end_at, device, count_controller
+                        ),
+                    },
+                )
             except IntegrityError as e:
                 times = time_reserved(device, string_date)
                 context["string_date"] = string_date

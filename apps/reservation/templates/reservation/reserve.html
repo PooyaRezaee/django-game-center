@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+{% load humanize %}
 
 {% block title %}
     رزرو {{ device.name }}
@@ -18,8 +19,20 @@
     {% csrf_token %}
     <h1 class="text-center font-bold text-2xl p-3">{{ device }}</h1>
     
-    
     <hr class="my-2">
+    <ul>
+        <li>
+            هزینه استفاده به ازای هر ساعت {{ device_price|intcomma:False }} تومان میباشد
+        </li>
+        {% if count_controller %}
+        <li>
+            هر دسته اضافه ساعتی {{ controller_price|intcomma:False }} تومان به مبلغ اضافه میشود
+        </li>
+        {% endif %}
+        <li>
+            درصورت تاخیر بیشتر از 15 دقیقه سلن گیم مجاز به لغو کردن رزرو شما میباشد
+        </li>
+    </ul>
     {% if times %}
     <div class="bg-black bg-opacity-30 p-2 my-2">
         <h2>بازه های پر برای این دستگاه در تاریخ {{ string_date }}</h2>
@@ -39,7 +52,7 @@
         <h3 class="me-auto">ساعت رزرو‌ (ساعت را بصورت 24 ساعته از 8 تا 22 انتخاب کنید)</h3>
         <div class="m-1">
             <label for="r1">از</label>
-            {% render_field form.start_at class="text-black text-center p-1 mx-2" value="8" min="8" max="21" %}
+            {% render_field form.start_at class="text-black text-center p-1 mx-2" value="9" min="8" max="21" %}
         </div>
         <div class="m-1">
             <label for="r2">تا</label>
@@ -57,7 +70,7 @@
     {% endif %}
 
     <hr class="my-2">
-    <button type="submit" class="bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md rounded-md   hover:shadow-emerald-800 p-2 my-2 w-11/12 md:w-2/3 bg-opacity-70">ثبت نوبت</button>
+    <button type="submit" id="submit-button" class="bg-gradient-to-r from-teal-600 via-teal-700 via-40% to-emerald-600 to-90% text-white shadow-md rounded-md hover:shadow-emerald-800 p-2 my-2 w-11/12 md:w-2/3 bg-opacity-70">ثبت نوبت - قیمت: 0 تومان</button>
 </form>
 {% endblock main-body %}
 
@@ -72,5 +85,43 @@
             showEmptyBtn:false,
         }
     );
+
+    const devicePrice = {{ device_price }};
+    {% if count_controller %}
+        const controllerPrice = {{ controller_price|default:0 }};
+    {% endif %}
+    
+    function updatePrice() {
+        const startAt = parseInt(document.getElementById('id_start_at').value) || 0;
+        const endAt = parseInt(document.getElementById('id_end_at').value) || 0;
+        const hours = endAt - startAt;
+
+        {% if count_controller %}
+            const countController = parseInt(document.getElementById('id_count_controller').value - 1) || 0;
+            let totalPrice = countController * controllerPrice * hours;
+        {% else %}
+            let totalPrice = 0;
+        {% endif %}
+            
+
+        if (hours > 0) {
+            totalPrice += (hours * devicePrice);
+        }
+
+        document.getElementById('submit-button').innerText = `ثبت نوبت - قیمت: ${totalPrice.toLocaleString()} تومان`;
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const startAtField = document.getElementById('id_start_at');
+        const endAtField = document.getElementById('id_end_at');
+        const countControllerField = document.getElementById('id_count_controller');
+
+        startAtField.addEventListener('input', updatePrice);
+        endAtField.addEventListener('input', updatePrice);
+        if (countControllerField) {
+            countControllerField.addEventListener('input', updatePrice);
+        }
+        updatePrice();
+    });
 </script>
 {% endblock script %}
