@@ -28,4 +28,4 @@ class SiteSettings(SingletonModel):
         return "تنظیمات سایت"
 
     class Meta:
-        verbose_name = "نظیمات سایت"
+        verbose_name = "تنظیمات سایت"

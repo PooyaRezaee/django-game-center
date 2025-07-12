@@ -33,7 +33,7 @@ urlpatterns = [
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
-    path("adNPanel/SaSelnGwamePanelSw212431234/", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("ckeditor/", include("django_ckeditor_5.urls")),
     path("", include("apps.main.urls","main")),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),

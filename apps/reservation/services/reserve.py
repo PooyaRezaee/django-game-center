@@ -1,62 +1,39 @@
 import jdatetime
-from django.db import models, IntegrityError
-from ..models import Reserve, PC, PS4, PS5
+from django.db import IntegrityError
+from ..models import Reserve, Device
 from apps.main.models import SiteSettings
 
+def reserve_device(device: Device, user, string_date: str, start: int, end: int, controllers: int) -> str:
+    y, m, d = map(int, string_date.split("/"))
+    date_reserve = jdatetime.date(year=y, month=m, day=d).togregorian()
 
-def reserve_device(
-    device: models,
-    user: models,
-    string_date: str,
-    start_at: int,
-    end_at: int,
-    count_controller: int,
-) -> int:
-    jyear = int(string_date.split("/")[0])
-    jmonth = int(string_date.split("/")[1])
-    jday = int(string_date.split("/")[2])
-    jdate = jdatetime.date(year=jyear, month=jmonth, day=jday)
-    date_reserve = jdate.togregorian()
-
-    base_reserve_filter = device.reserves.filter(date_reserve=date_reserve)
-    for reserve in base_reserve_filter:
-        if reserve.time_start <= start_at < reserve.time_end:
-            raise IntegrityError(
-                "بازه انتخابی رزرو شده است لطفا به بازه های پر دقت کنید و ساعت دیگری را وارد کنید"
-            )
+    for r in device.reserves.filter(date_reserve=date_reserve):
+        if r.time_start <= start < r.time_end:
+            raise IntegrityError("این بازه قبلاً رزرو شده است")
 
     reserve = Reserve.objects.create(
         user=user,
+        device=device,
         date_reserve=date_reserve,
-        time_start=start_at,
-        time_end=end_at,
-        content_object=device,
-        count_controller=count_controller,
+        time_start=start,
+        time_end=end,
+        count_controller=controllers,
     )
     return reserve.customer_id
 
 
-def calculate_price(
-    start_at: int, end_at: int, device: PS4 | PS5 | PC, count_controller=1
-):
-    config = SiteSettings.get_solo()
-    total = 0
-    hour = end_at - start_at
-
-    if hour < 0:
+def calculate_price(start: int, end: int, device: Device, controllers=1) -> int:
+    cfg = SiteSettings.get_solo()
+    hours = end - start
+    if hours <= 0:
         return 0
-
-    if isinstance(device, PS4):
-        total += config.price_ps4 * hour
-        print(count_controller)
-        total += (count_controller - 1) * config.price_per_controoler_ps4 * hour
-    elif isinstance(device, PS5):
-        total += config.price_ps5 * hour
-        print(count_controller)
-        total += (count_controller - 1) * config.price_per_controoler_ps5 * hour
-    elif isinstance(device, PC):
-        total += config.price_pc * hour
+    if device.type == "ps4":
+        base = cfg.price_ps4
+        extra = cfg.price_per_controoler_ps4
+    elif device.type == "ps5":
+        base = cfg.price_ps5
+        extra = cfg.price_per_controoler_ps5
     else:
-        return None
-
-    return total
+        base = cfg.price_pc
+        extra = 0
+    return base * hours + max(0, controllers - 1) * extra * hours

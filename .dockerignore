@@ -6,7 +6,6 @@ venv
 *.db
 *.sqlite3
 *.git
-*.env
 *.idea
 *.vscode
 .DS_Store

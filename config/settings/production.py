@@ -147,7 +147,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "django-selengame",
+        "LOCATION": "django-Pgame",
     }
 }
 
@@ -314,8 +314,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "selen-game.liara.run",
-    "selengame.ir",
+    "P-game.liara.run",
+    "Pgame.ir",
 ]
 
 TIME_CACHE_VIEW = 60 * 60
